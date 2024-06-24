@@ -15,6 +15,11 @@
     <body>
         {% include "_partials/_nav.html.twig" %}
         {% include "_partials/_flashes.html.twig" %}
+        {% if app.user  and app.user.isVerified == false %}
+            <alert class="alert alert-warning">
+                Votre e-mail n'est pas encore vérifiée! Veuillez cliquer <a href="{{path('renvoi_verif')}}">ici</a> pour l'activer
+            </alert>
+        {% endif %}
         {% block body %}{% endblock %}
         {% include "_partials/_footer.html.twig" %}
     </body>
