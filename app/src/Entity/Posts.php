@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
 #[UniqueEntity('title', 'Cet article existe déjà !')]
@@ -19,6 +20,11 @@ class Posts
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 5,
+        max: 25,
+        minMessage: 'Le titre doit comporter entre 5 et 255 caractères'
+    )]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]

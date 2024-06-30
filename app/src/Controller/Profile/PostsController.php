@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Profile;
 
 use App\Entity\Posts;
 use App\Form\PostsFormType;
@@ -12,13 +12,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/admin/posts', name: 'admin_posts_')]
+#[Route('/profile/posts', name: 'profile_posts_')]
 class PostsController extends AbstractController
 {
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return $this->render('admin/posts/index.html.twig', [
+        return $this->render('profile/posts/index.html.twig', [
             'controller_name' => 'PostsController',
         ]);
     }
@@ -42,10 +42,10 @@ class PostsController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'L\'article été ajouté avec succès');
-            return $this->redirectToRoute('admin_posts_index');
+            return $this->redirectToRoute('profile_posts_index');
         }
 
-        return $this->render('admin/posts/add.html.twig', [
+        return $this->render('profile/posts/add.html.twig', [
             'form' => $form,
         ]);
     }
