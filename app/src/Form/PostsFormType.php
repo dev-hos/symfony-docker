@@ -34,6 +34,9 @@ class PostsFormType extends AbstractType
                 'label' => 'Image de l\'article',
                 'mapped' => false,
                 'required' => false,
+                'attr' => [
+                    'accept' => 'image/png, image/jpeg, image/webp'
+                ],
                 'constraints' => [
                     new Image(
                         minWidth: 200,

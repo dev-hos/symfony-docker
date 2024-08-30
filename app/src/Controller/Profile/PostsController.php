@@ -5,6 +5,7 @@ namespace App\Controller\Profile;
 use App\Entity\Posts;
 use App\Form\PostsFormType;
 use App\Repository\UsersRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,8 @@ class PostsController extends AbstractController
         Request $request, 
         EntityManagerInterface $em,
         SluggerInterface $slugger, 
-        UsersRepository $usersRepository
+        UsersRepository $usersRepository,
+        PictureService $pictureService
     ): Response
     {
         $post = new Posts();
@@ -36,8 +38,10 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug(strtolower($slugger->slug($post->getTitle())));
-            $post->setFeaturedImage('default.png');
-            $post->setUsers($usersRepository->find(1));
+            $post->setUsers($this->getUser());
+            $picture = $form->get('featuredImage')->getData();
+            $image = $pictureService->square($picture, 'article', 300);
+            $post->setFeaturedImage($image);
             $em->persist($post);
             $em->flush();
 
