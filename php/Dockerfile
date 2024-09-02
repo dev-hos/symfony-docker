@@ -15,6 +15,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
 
 RUN a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb
 
+COPY php.ini /usr/local/etc/php/
+
 WORKDIR /var/www
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

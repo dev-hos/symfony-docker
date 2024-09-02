@@ -33,6 +33,25 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * Returns count of posts for each user
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function getUsersByPost($limit): array
+    {
+        return $this->createQueryBuilder('u')
+            ->addSelect('COUNT(p) as total')
+            ->leftJoin('u.posts', 'p')
+            ->groupBy('u.id')
+            ->orderBy('total', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Users[] Returns an array of Users objects
     //     */

@@ -2,19 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Categories;
-use App\Entity\Keywords;
 use App\Entity\Posts;
 use App\Entity\Users;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Keywords;
+use App\Entity\Categories;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class PostsFormType extends AbstractType
 {
@@ -44,9 +46,10 @@ class PostsFormType extends AbstractType
                         minHeight: 200,
                         maxHeight: 4000,
                         allowPortrait: false,
-                        mimeTypes: ['image/jpeg', 'image/png'],
-                    )
+                        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+                    ),
                 ]
+                
             ])
 
             ->add('categories', EntityType::class, [

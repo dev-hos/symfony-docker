@@ -22,4 +22,8 @@ body {
 
 .preview {
   display: none;
+}
+
+header .img img {
+  width: 100%;
 }/*# sourceMappingURL=app.css.map */

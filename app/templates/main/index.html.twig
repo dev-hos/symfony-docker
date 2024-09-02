@@ -1,9 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}
+	Accueil
+{% endblock %}
 
 {% block body %}
-<h1>Home page Open blog</h1>
-<a href="{{path('app_login')}}">Login</a> <br>
-<a href="{{path('app_register')}}">register</a>
+	<header>
+		<div class="img">
+			<img src="{{ asset('uploads/article/' ~ lastPost.featuredImage) }}" alt=""/>
+		</div>
+		<div class="category">
+			{% for category in lastPost.categories %}
+				<span>{{ category.name }}</span>
+			{% endfor %}
+		</div>
+		<h3>{{ lastPost.title }}</h3>
+		<p>{{ lastPost.users.nickname }}</p>
+	</header>
+
+	<main>
+		<section>
+			<h2>Derniers articles</h2>
+			{% for post in posts %}
+				<div class="img">
+					<img src="{{ asset('uploads/article/mini/300x300-' ~ post.featuredImage) }}" alt=""/>
+				</div>
+				<div class="category">
+					{% for category in post.categories %}
+						<span>{{ category.name }}</span>
+					{% endfor %}
+				</div>
+				<h3>{{ post.title }}</h3>
+				<p>{{ post.users.nickname }}</p>
+			{% endfor %}
+		</section>
+		<section>
+			<h2>Auteurs actifs</h2>
+			{% for author in authors %}
+				<h3>{{ author[0].nickname }} : {{ author.total }}</h3>
+			{% endfor %}
+		</section>
+	</main>
+
+	<a href="{{ path('app_login') }}">Login</a>
+	<br/>
+	<a href="{{ path('app_register') }}">register</a>
 {% endblock %}
